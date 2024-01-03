@@ -1,23 +1,16 @@
 class Solution {
 public:
     string longestCommonPrefix(vector<string>& strs) {
-         // Check if the vector is empty
-        if (strs.empty()) {
-            return "";
+        /*If the array is sorted alphabetically then you can assume that the first element of the array and the last element of the array will have most different prefixes of all comparisons that could be made between strings in the array. If this is true, you only have to compare these two strings.*/
+        sort(strs.begin(),strs.end());
+        string ans="";
+        int n=strs.size()-1;
+        string first=strs[0],last=strs[n];
+        for(int i=0; i<min(first.length(),last.length());i++){
+            if(first[i]!=last[i])
+                return ans;
+            ans+=first[i];
         }
-
-        // Iterate through characters of the first string
-        for (int i = 0; i < strs[0].size(); ++i) {
-            // Compare the character at position i in the first string with the corresponding characters in the other strings
-            for (int j = 1; j < strs.size(); ++j) {
-                // If the current character doesn't match or we reach the end of any string, return the prefix found so far
-                if (i >= strs[j].size() || strs[j][i] != strs[0][i]) {
-                    return strs[0].substr(0, i);
-                }
-            }
-        }
-
-        // If we reach here, the entire first string is a common prefix
-        return strs[0];
+        return ans;   
     }
 };
